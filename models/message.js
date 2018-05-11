@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const User = require('./user')
 
-const messageSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema(
+  {
   text: {
     type: String,
     required: true,
@@ -11,7 +12,11 @@ const messageSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+},
+  {
+    timestamps: true
+  }
+)
 
 messageSchema.pre('remove', async function(next) {
   try {
