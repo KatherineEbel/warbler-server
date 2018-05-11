@@ -18,7 +18,11 @@ const userSchema = new mongoose.Schema({
   },
   profileImageUrl: {
     type: String
-  }
+  },
+  messages: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message'
+  }]
 })
 
 // this is run on all users before they are saved
@@ -36,8 +40,7 @@ userSchema.pre('save', async function(next) {
 
 userSchema.methods.comparePassword = async function(candidate, next) {
   try {
-    const isMatch = await bcrypt.compare(candidate, this.password)
-    return isMatch
+    return await bcrypt.compare(candidate, this.password)
   } catch (e) {
     return next(err)
   }

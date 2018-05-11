@@ -2,9 +2,6 @@ const db = require('../models') // gets index.js
 const jwt = require('jsonwebtoken')
 
 exports.signin = async (req, res, next) => {
-  // finding a user
-  // checking if their password matches stored password
-  //if matches - log in
   try {
     let user = await db.User.findOne({
       email: req.body.email
