@@ -7,6 +7,7 @@ const errorHandler = require('./handlers/error')
 const authRoutes = require('./routes/auth')
 const messageRoutes = require('./routes/messages')
 const { loginRequired, ensureCorrectUser } = require('./middleware/auth')
+const db = require('./models')
 
 const PORT = 8081;
 
@@ -22,7 +23,7 @@ app.use(
   messageRoutes
 )
 
-app.get('/api/messages', loginRequired, async (res, req, next) => {
+app.get('/api/messages', loginRequired, async (req, res, next) => {
   try {
     const messages = await db.Message.find()
       .sort({ createdAt: 'desc'})
